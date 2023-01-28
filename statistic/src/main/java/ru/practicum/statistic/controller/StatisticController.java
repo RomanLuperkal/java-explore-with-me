@@ -29,7 +29,7 @@ public class StatisticController {
     public ResponseEntity<ListViewStats> getStats(@RequestParam String start,
                                                   @RequestParam String end,
                                                   @RequestParam(required = false) List<String> uris,
-                                                  @RequestParam(defaultValue = "false") Boolean unique){
+                                                  @RequestParam(defaultValue = "false") Boolean unique) {
         return ResponseEntity.status(HttpStatus.OK).body(statisticService.getStats(start, end, uris, unique));
     }
 }
