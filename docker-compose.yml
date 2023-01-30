@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   stats-server:
-    build: ./statistic
+    build: ./stat/stat-server
     image: stats-server-image
     container_name: ewm-stats-server
     depends_on:
