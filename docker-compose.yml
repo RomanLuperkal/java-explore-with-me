@@ -30,7 +30,7 @@ services:
   ewm-service:
     build: ./server
     image: emw-server-image
-    container_name: emw-server-image
+    container_name: emw-main-server
     depends_on:
       - stats-server
       - ewm-db
