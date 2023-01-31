@@ -1,4 +1,3 @@
 FROM amazoncorretto:11
-COPY target/*.jar /EWM-Stat.jar
-EXPOSE 9090
-ENTRYPOINT ["java", "-jar", "/EWM-Stat.jar"]
+COPY target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
