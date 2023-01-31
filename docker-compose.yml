@@ -16,7 +16,7 @@ services:
       - DB_PORT=5432
 
   stats-db:
-    image: postgres:14
+    image: postgres:15.1-alpine
     container_name: EWM-stats-db
     ports:
       - "6541:5432"
@@ -44,7 +44,7 @@ services:
       - DB_PORT=5432
 
   ewm-db:
-      image: postgres:14
+      image: postgres:15.1-alpine
       container_name: EWM-server-db
       ports:
         - "6542:5432"
