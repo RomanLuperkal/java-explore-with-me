@@ -2,10 +2,7 @@ package ru.practicum.server.event.mapper;
 
 import org.mapstruct.*;
 import ru.practicum.server.category.mapper.CategoryMapper;
-import ru.practicum.server.event.dto.EventFullDto;
-import ru.practicum.server.event.dto.EventShortDto;
-import ru.practicum.server.event.dto.NewEventDto;
-import ru.practicum.server.event.dto.UpdateEventUserRequest;
+import ru.practicum.server.event.dto.*;
 import ru.practicum.server.event.enums.State;
 import ru.practicum.server.event.model.Event;
 import ru.practicum.server.user.mapper.UserMapper;
@@ -42,4 +39,9 @@ public interface EventMapper {
     State mapToState(String state);
 
     List<State> mapToListStates(List<String> states);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "category", ignore = true)
+    @Mapping(source = "eventDate", target = "eventDate", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    Event mapToEvent(UpdateEventAdminRequest updateEvent, @MappingTarget Event event);
 }

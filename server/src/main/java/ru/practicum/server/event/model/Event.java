@@ -3,12 +3,15 @@ package ru.practicum.server.event.model;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.server.category.model.Category;
+import ru.practicum.server.compilation.model.Compilation;
 import ru.practicum.server.event.enums.State;
 import ru.practicum.server.event.location.Location;
+import ru.practicum.server.request.model.Request;
 import ru.practicum.server.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -50,5 +53,10 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private State state = State.PENDING;
     @Column
-    private Integer views = 0;
+    private Long views = 0L;
+    @OneToMany(mappedBy = "event")
+    private Set<Request> requests;
+    @ManyToMany(mappedBy = "events")
+    private Set<Compilation> compilations;
+
 }

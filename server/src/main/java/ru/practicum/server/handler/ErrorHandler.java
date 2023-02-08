@@ -4,10 +4,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import ru.practicum.server.handler.exception.AccessException;
+import ru.practicum.server.handler.exception.EventStateException;
 import ru.practicum.server.handler.exception.EventUpdateException;
 import ru.practicum.server.handler.exception.NotFoundException;
 import ru.practicum.server.handler.response.ApiError;
@@ -70,8 +72,8 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @ExceptionHandler(AccessException.class)
-    private ResponseEntity<ApiError> handleException(AccessException e) {
+    @ExceptionHandler({AccessException.class, EventStateException.class})
+    private ResponseEntity<ApiError> handleExceptions(RuntimeException e) {
         ApiError errorResponse = ApiError.builder()
                 .errors(Arrays.asList(e.getStackTrace()))
                 .message(e.getMessage())
@@ -82,8 +84,9 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class, EventUpdateException.class})
-    private ResponseEntity<ApiError> handleException(RuntimeException e) {
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, EventUpdateException.class,
+            MissingServletRequestParameterException.class})
+    private ResponseEntity<ApiError> handleException(Exception e) {
         ApiError errorResponse = ApiError.builder()
                 .errors(Arrays.asList(e.getStackTrace()))
                 .message(e.getMessage())

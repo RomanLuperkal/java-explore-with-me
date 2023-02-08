@@ -13,6 +13,9 @@ import ru.practicum.server.event.dto.ListEventShortDto;
 import ru.practicum.server.event.dto.NewEventDto;
 import ru.practicum.server.event.dto.UpdateEventUserRequest;
 import ru.practicum.server.event.service.EventService;
+import ru.practicum.server.request.dto.EventRequestStatusUpdate;
+import ru.practicum.server.request.dto.EventRequestStatusUpdateResult;
+import ru.practicum.server.request.dto.ParticipationRequestList;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -38,14 +41,14 @@ public class PrivateEventController {
                                                            @PathVariable @Min(1) Long userId) {
         log.info("get events with userId={}, from: {},size: {}" ,userId, from, size);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.getUserEvents(userId, PageRequest.of(from/size, size)));
+                .body(eventService.getPrivateUserEvents(userId, PageRequest.of(from/size, size)));
     }
 
     @GetMapping("{userId}/events/{eventId}")
     public ResponseEntity<EventFullDto> getUserEvent(@PathVariable @Min(1) Long userId,
                                                      @PathVariable @Min(1) Long eventId) {
         log.info("get event with eventId={} and userId={}", eventId, userId);
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.getUserEvent(userId, eventId));
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getPrivateUserEvent(userId, eventId));
     }
 
     @PatchMapping("{userId}/events/{eventId}")
@@ -53,6 +56,22 @@ public class PrivateEventController {
                                                     @PathVariable @Min(1) Long eventId,
                                                     @RequestBody @Valid UpdateEventUserRequest updateEvent) {
         log.info("update event with eventId={} and userId={} to event:{}", eventId, userId, updateEvent);
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.updateEvent(userId, eventId, updateEvent));
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.updateEventUser(userId, eventId, updateEvent));
+    }
+
+    @GetMapping("{userId}/events/{eventId}/requests")
+    public ResponseEntity<ParticipationRequestList> getUserEventRequests(@PathVariable @Min(1) Long userId,
+                                                                         @PathVariable @Min(1) Long eventId) {
+        log.info("get requests for userId={} and eventId={}", userId, eventId);
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getUserEventRequests(userId, eventId));
+    }
+
+    @PatchMapping("{userId}/events/{eventId}/requests")
+    public ResponseEntity<EventRequestStatusUpdateResult> approveRequests(@PathVariable @Min(1) Long userId,
+                                                                          @PathVariable @Min(1) Long eventId,
+                                                                          @RequestBody EventRequestStatusUpdate requests) {
+    log.info("processing requests for eventId={} and userId={}", eventId, userId);
+    log.info("requests:{}", requests);
+    return ResponseEntity.status(HttpStatus.OK).body(eventService.approveRequests(userId, eventId, requests));
     }
 }
