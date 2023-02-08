@@ -40,9 +40,9 @@ public class UserControllerAdmin {
     }
 
     @DeleteMapping("{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable @Min(1) Long userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable @Min(1) Long userId) {
         log.info("delete user with id={}", userId);
         userService.deleteUser(userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

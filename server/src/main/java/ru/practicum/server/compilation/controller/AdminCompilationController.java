@@ -30,10 +30,10 @@ public class AdminCompilationController {
     }
 
     @DeleteMapping("{compId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompilation(@PathVariable @Min(1) Long compId) {
+    public ResponseEntity<Void> deleteCompilation(@PathVariable @Min(1) Long compId) {
         log.info("delete compilation with id={}", compId);
         compilationService.deleteCompilation(compId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PatchMapping("{compId}")
