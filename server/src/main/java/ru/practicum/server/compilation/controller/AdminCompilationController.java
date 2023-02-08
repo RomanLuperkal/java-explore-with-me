@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 @RestController
-@RequestMapping( "/admin/compilations")
+@RequestMapping("/admin/compilations")
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Validated

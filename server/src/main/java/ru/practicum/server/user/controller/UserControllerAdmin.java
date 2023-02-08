@@ -36,7 +36,7 @@ public class UserControllerAdmin {
                                                            @RequestParam(defaultValue = "0") @Min(0) Integer from,
                                                            @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("getUsersFromListIds: ids: {}, from: {},size: {}", ids, from, size);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(ids, PageRequest.of(from/size, size)));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(ids, PageRequest.of(from / size, size)));
     }
 
     @DeleteMapping("{userId}")

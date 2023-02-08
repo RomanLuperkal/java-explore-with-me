@@ -48,7 +48,7 @@ public class EventServiceImp implements EventService {
     private final EventMapper mapper;
     private final RequestMapper requestMapper;
     private final StatisticClient statisticClient;
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final RequestRepository requestRepository;
 
     @Override
@@ -96,7 +96,7 @@ public class EventServiceImp implements EventService {
         if (users.existsById(userId)) {
             LocalDateTime eventTime;
             if (updateEvent.getEventDate() != null) {
-                eventTime = LocalDateTime.parse(updateEvent.getEventDate(), FORMATTER);
+                eventTime = LocalDateTime.parse(updateEvent.getEventDate(), formatter);
                 if (eventTime.isBefore(LocalDateTime.now().minusHours(2))) {
                     throw new AccessException("Field: eventDate. Error: должно содержать дату, которая еще не наступила. " +
                             "Value: " + eventTime);
@@ -138,7 +138,7 @@ public class EventServiceImp implements EventService {
     public EventFullDto updateEventAdmin(Long eventId, UpdateEventAdminRequest updateEvent) {
         LocalDateTime eventTime;
         if (updateEvent.getEventDate() != null) {
-            eventTime = LocalDateTime.parse(updateEvent.getEventDate(), FORMATTER);
+            eventTime = LocalDateTime.parse(updateEvent.getEventDate(), formatter);
             if (eventTime.isBefore(LocalDateTime.now().minusHours(1))) {
                 throw new AccessException("Field: eventDate. Error: должно содержать дату, которая еще не наступила. " +
                         "Value: " + eventTime);
@@ -234,7 +234,7 @@ public class EventServiceImp implements EventService {
             booleanBuilder.and(QEvent.event.annotation.likeIgnoreCase(text))
                     .or(QEvent.event.description.likeIgnoreCase(text));
         }
-        if(rangeStart == null && rangeEnd == null) {
+        if (rangeStart == null && rangeEnd == null) {
             booleanBuilder.and(QEvent.event.eventDate.after(LocalDateTime.now()));
         }
         if (onlyAvailable) {

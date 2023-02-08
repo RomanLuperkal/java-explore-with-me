@@ -39,7 +39,7 @@ public class AdminEventController {
         log.info("get events by filter:");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(eventService.getEventsByFiltersForAdmin(users, states, categories, rangeStart, rangeEnd,
-                        PageRequest.of(from/size, size)));
+                        PageRequest.of(from / size, size)));
     }
 
     @PatchMapping("{eventId}")

@@ -22,7 +22,8 @@ import java.util.Map;
 @Slf4j
 @Service
 public class StatisticClient extends BaseClient {
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Autowired
     public StatisticClient(@Value("${STAT-SERVER-URL}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
@@ -37,7 +38,7 @@ public class StatisticClient extends BaseClient {
                 .app(app)
                 .ip(servlet.getRemoteAddr())
                 .uri(servlet.getRequestURI())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         post("/hit", hit);
     }
@@ -45,8 +46,8 @@ public class StatisticClient extends BaseClient {
     public Long getViews(Long eventId) {
         String url = "/stats?start={start}&end={end}&uris={uris}&unique={unique}";
         Map<String, Object> parameters = Map.of(
-                "start", LocalDateTime.now().minusYears(100).format(FORMATTER),
-                "end", LocalDateTime.now().format(FORMATTER),
+                "start", LocalDateTime.now().minusYears(100).format(formatter),
+                "end", LocalDateTime.now().format(formatter),
                 "uris", "/events/" + eventId,
                 "unique", "false"
         );

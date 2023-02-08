@@ -27,7 +27,7 @@ public class PublicCategoryController {
                                                          @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         log.info("get categories: from: {},size: {}", from, size);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(categoryService.getCategories(PageRequest.of(from/size, size)));
+                .body(categoryService.getCategories(PageRequest.of(from / size, size)));
     }
 
     @GetMapping("{catId}")

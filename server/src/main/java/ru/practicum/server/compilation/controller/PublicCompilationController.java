@@ -15,7 +15,7 @@ import ru.practicum.server.compilation.service.CompilationService;
 import javax.validation.constraints.Min;
 
 @RestController
-@RequestMapping( "/compilations")
+@RequestMapping("/compilations")
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Validated
@@ -33,6 +33,6 @@ public class PublicCompilationController {
                                                               @RequestParam(defaultValue = "10") @Min(1) Integer size,
                                                               @RequestParam(defaultValue = "0") @Min(0) Integer from) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(compilationService.getCompilations(pinned, PageRequest.of(from/size, size)));
+                .body(compilationService.getCompilations(pinned, PageRequest.of(from / size, size)));
     }
 }

@@ -23,7 +23,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CompilationServiceImp implements CompilationService{
+public class CompilationServiceImp implements CompilationService {
     private final CompilationRepository compilations;
     private final CompilationMapper mapper;
     private final EventRepository events;

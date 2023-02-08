@@ -15,7 +15,7 @@ import ru.practicum.server.handler.exception.NotFoundException;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CategoryServiceImp implements CategoryService{
+public class CategoryServiceImp implements CategoryService {
     private final CategoryRepository categories;
     private final CategoryMapper mapper;
 
@@ -53,7 +53,7 @@ public class CategoryServiceImp implements CategoryService{
 
     @Override
     public NewCategoryDtoResp getCategoryById(Long catId) {
-            return mapper.mapToNewCategoryDtoResp(categories.findById(catId)
-                    .orElseThrow(() -> new NotFoundException("Category with id=" + catId + " was not found")));
+        return mapper.mapToNewCategoryDtoResp(categories.findById(catId)
+                .orElseThrow(() -> new NotFoundException("Category with id=" + catId + " was not found")));
     }
 }

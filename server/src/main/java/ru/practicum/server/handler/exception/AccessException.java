@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AccessException extends RuntimeException{
+public class AccessException extends RuntimeException {
     private String message;
 }

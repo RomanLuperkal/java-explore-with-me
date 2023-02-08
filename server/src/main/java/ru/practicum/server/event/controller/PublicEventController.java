@@ -50,7 +50,7 @@ public class PublicEventController {
         log.info("get events public");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(eventService.getEventsByFiltersPublic(
-                        text, categories, paid, rangeStart, rangeEnd, onlyAvailable, PageRequest.of(from/size
-                                , size, Sort.by(EventSort.getSortField(sort)).ascending()), servlet));
+                        text, categories, paid, rangeStart, rangeEnd, onlyAvailable,
+                        PageRequest.of(from / size, size, Sort.by(EventSort.getSortField(sort)).ascending()), servlet));
     }
 }

@@ -39,9 +39,9 @@ public class PrivateEventController {
     public ResponseEntity<ListEventShortDto> getUserEvents(@RequestParam(defaultValue = "0") @Min(0) Integer from,
                                                            @RequestParam(defaultValue = "10") @Min(1) Integer size,
                                                            @PathVariable @Min(1) Long userId) {
-        log.info("get events with userId={}, from: {},size: {}" ,userId, from, size);
+        log.info("get events with userId={}, from: {},size: {}", userId, from, size);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.getPrivateUserEvents(userId, PageRequest.of(from/size, size)));
+                .body(eventService.getPrivateUserEvents(userId, PageRequest.of(from / size, size)));
     }
 
     @GetMapping("{userId}/events/{eventId}")
@@ -70,8 +70,8 @@ public class PrivateEventController {
     public ResponseEntity<EventRequestStatusUpdateResult> approveRequests(@PathVariable @Min(1) Long userId,
                                                                           @PathVariable @Min(1) Long eventId,
                                                                           @RequestBody EventRequestStatusUpdate requests) {
-    log.info("processing requests for eventId={} and userId={}", eventId, userId);
-    log.info("requests:{}", requests);
-    return ResponseEntity.status(HttpStatus.OK).body(eventService.approveRequests(userId, eventId, requests));
+        log.info("processing requests for eventId={} and userId={}", eventId, userId);
+        log.info("requests:{}", requests);
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.approveRequests(userId, eventId, requests));
     }
 }

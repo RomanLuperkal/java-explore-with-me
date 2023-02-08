@@ -21,7 +21,8 @@ import java.util.Arrays;
 
 @RestControllerAdvice("ru.practicum.server")
 public class ErrorHandler {
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     private ResponseEntity<ApiError> handleException(MethodArgumentNotValidException e) {
         ApiError errorResponse = ApiError.builder()
@@ -29,7 +30,7 @@ public class ErrorHandler {
                 .message(e.getFieldError().getDefaultMessage())
                 .reason("Incorrectly made request.")
                 .status(HttpStatus.BAD_REQUEST.toString())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
@@ -41,7 +42,7 @@ public class ErrorHandler {
                 .message(e.getMessage())
                 .reason("Integrity constraint has been violated.")
                 .status(String.valueOf(HttpStatus.CONFLICT))
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
@@ -55,7 +56,7 @@ public class ErrorHandler {
                 .message(e.getMessage())
                 .reason("The required object was not found.")
                 .status(HttpStatus.NOT_FOUND.toString())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
@@ -67,7 +68,7 @@ public class ErrorHandler {
                 .message(e.getMessage())
                 .reason("Invalid request parameters.")
                 .status(HttpStatus.BAD_REQUEST.toString())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
@@ -79,7 +80,7 @@ public class ErrorHandler {
                 .message(e.getMessage())
                 .reason("For the requested operation the conditions are not met.")
                 .status(HttpStatus.CONFLICT.toString())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
@@ -92,7 +93,7 @@ public class ErrorHandler {
                 .message(e.getMessage())
                 .reason("Incorrectly made request.")
                 .status(HttpStatus.BAD_REQUEST.toString())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(LocalDateTime.now().format(formatter))
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
