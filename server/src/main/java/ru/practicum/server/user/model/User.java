@@ -20,6 +20,8 @@ public class User {
     private String name;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(name = "are_comments_blocked")
+    private Boolean areCommentsBlocked = Boolean.FALSE;
 
     @Override
     public boolean equals(Object o) {
