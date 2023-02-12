@@ -39,4 +39,20 @@ public class PrivateCommentController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(commentService.updateComment(userId, commentId, updateComment));
     }
+
+    @DeleteMapping("{userId}/comments/{commentId}")
+    public ResponseEntity<Void> deleteCommentUser(@PathVariable @Min(1) Long userId,
+                                                  @PathVariable @Min(1) Long commentId) {
+        log.info("delete comment with commentId={} and userId={}", commentId, userId);
+        commentService.deleteCommentUser(commentId, userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("comments")
+    public ResponseEntity<Void> reportCommentUser(@RequestParam @Min(1) Long reportUserId,
+                                                  @RequestParam @Min(1) Long commentId) {
+        log.info("report userId={} with commentId={}", reportUserId, commentId);
+        commentService.reportComment(commentId, reportUserId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

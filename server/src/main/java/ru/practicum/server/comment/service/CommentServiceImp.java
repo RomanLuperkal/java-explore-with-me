@@ -17,6 +17,8 @@ import ru.practicum.server.event.repository.EventRepository;
 import ru.practicum.server.handler.exception.AccessException;
 import ru.practicum.server.handler.exception.CommentException;
 import ru.practicum.server.handler.exception.NotFoundException;
+import ru.practicum.server.report.model.Report;
+import ru.practicum.server.report.repository.ReportRepository;
 import ru.practicum.server.user.model.User;
 import ru.practicum.server.user.repository.UserRepository;
 
@@ -29,6 +31,7 @@ public class CommentServiceImp implements CommentService {
     private final CommentMapper mapper;
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     public CommentDtoResponse addComment(Long userId, Long eventId, NewCommentDto newComment) {
@@ -36,7 +39,7 @@ public class CommentServiceImp implements CommentService {
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " was not found"));
         Event event;
         if (user.getAreCommentsBlocked()) {
-            throw new AccessException("A user with id=" + userId + "has comments blocked");
+            throw new AccessException("A user with id=" + userId + " has comments blocked");
         }
         event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event with id=" + eventId + " was not found"));
@@ -61,5 +64,37 @@ public class CommentServiceImp implements CommentService {
         }
         comment.setState(CommentState.EDITED);
         return mapper.mapToCommentResponse(commentRepository.save(mapper.mapToComment(updateComment, comment)));
+    }
+
+    @Override
+    public void deleteCommentUser(Long commentId, Long userId) {
+        Comment comment = commentRepository.findByCommentIdAndAuthorUserId(commentId, userId)
+                .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId
+                        + " and userId=" + userId + " not found"));
+        if (LocalDateTime.now().isAfter(comment.getCreated().plusHours(2))) {
+            throw new CommentException("Сan't delete a comment that was created more than 2 hours ago");
+        }
+        commentRepository.deleteById(commentId);
+    }
+
+    @Override
+    public void reportComment(Long commentId, Long userId) {
+        Comment comment = commentRepository.findByCommentIdAndAuthorUserId(commentId, userId)
+                .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId
+                        + " and userId=" + userId + " not found"));
+        Report report = new Report();
+        report.setReportedUser(comment.getAuthor());
+        report.setReportedMessage(comment.getText());
+        reportRepository.save(report);
+    }
+
+    @Override
+    public void deleteCommentAdmin(Long commentId, Long userId) {
+        if (commentRepository.existsByCommentIdAndAuthorUserId(commentId, userId)) {
+            commentRepository.deleteById(commentId);
+        } else {
+            throw new NotFoundException("Comment with commentId=" + commentId
+                    + " and userId=" + userId + " not found");
+        }
     }
 }
