@@ -12,6 +12,7 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     Comment mapToComment(NewCommentDto newComment);
+
     @Mapping(source = "author.name", target = "authorName")
     @Mapping(source = "event.title", target = "eventTitle")
     @Mapping(source = "created", target = "created", dateFormat = "yyyy-MM-dd HH:mm:ss")
