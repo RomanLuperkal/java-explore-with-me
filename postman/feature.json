@@ -19,7 +19,7 @@
 									"pm.test(\"Данные в ответе должны соответствовать запросу\", () => {\r",
 									"    var body = pm.response.json();\r",
 									"\r",
-									"    pm.expect(body.id, '\"id\" field').eq(1);\r",
+									"    pm.expect(body.id, '\"id\" field').eq(61);\r",
 									"    pm.expect(body.name, '\"name\" field').eq('User1');\r",
 									"    pm.expect(body.email, '\"email\" field').eq('user1@hotmail.com')\r",
 									"})"
@@ -63,7 +63,7 @@
 									"pm.test(\"Данные в ответе должны соответствовать запросу\", () => {\r",
 									"    var body = pm.response.json();\r",
 									"\r",
-									"    pm.expect(body.id, '\"id\" field').eq(2);\r",
+									"    pm.expect(body.id, '\"id\" field').eq(62);\r",
 									"    pm.expect(body.name, '\"name\" field').eq('Bad user');\r",
 									"    pm.expect(body.email, '\"email\" field').eq('bad_user@hotmail.com')\r",
 									"})"
@@ -107,11 +107,11 @@
 									"pm.test(\"данные ответа не совпадают с ожидаемыми\", () => {\r",
 									"    var body = pm.response.json();\r",
 									"\r",
-									"    pm.expect(body[0].id, 'result[0]: \"id\" field').eq(1);\r",
+									"    pm.expect(body[0].id, 'result[0]: \"id\" field').eq(61);\r",
 									"    pm.expect(body[0].name, 'result[0]: \"name\" field').eq('User1');\r",
 									"    pm.expect(body[0].email, 'result[0]: \"email\" field').eq('user1@hotmail.com')\r",
 									"\r",
-									"    pm.expect(body[1].id, 'result[0]: \"id\" field').eq(2);\r",
+									"    pm.expect(body[1].id, 'result[0]: \"id\" field').eq(62);\r",
 									"    pm.expect(body[1].name, 'result[0]: \"name\" field').eq('Bad user');\r",
 									"    pm.expect(body[1].email, 'result[0]: \"email\" field').eq('bad_user@hotmail.com')\r",
 									"})"
@@ -124,7 +124,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/users?ids=1,2",
+							"raw": "{{baseUrl}}/admin/users?ids=61,62",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -135,7 +135,7 @@
 							"query": [
 								{
 									"key": "ids",
-									"value": "1,2"
+									"value": "61,62"
 								}
 							]
 						}
@@ -181,7 +181,7 @@
 									"pm.test(\"Данные ответа не совпадают с ожидаемыми\", () => {\r",
 									"    var response = pm.response.json();\r",
 									"\r",
-									"    pm.expect(response.id, '\"id\" field').eq(1);\r",
+									"    pm.expect(response.id, '\"id\" field').eq(56);\r",
 									"    pm.expect(response.name, '\"name\" field').eq('category1');\r",
 									"})"
 								],
@@ -224,7 +224,7 @@
 									"pm.test(\"Данные в ответе не совпадают с ожидаемыми\", () => {\r",
 									"    var response = pm.response.json();\r",
 									"\r",
-									"    pm.expect(response.id, '\"id\" field').eq(1);\r",
+									"    pm.expect(response.id, '\"id\" field').eq(56);\r",
 									"    pm.expect(response.name, '\"name\" field').eq('category1');\r",
 									"})"
 								],
@@ -247,7 +247,7 @@
 							"variable": [
 								{
 									"key": "catId",
-									"value": "1"
+									"value": "56"
 								}
 							]
 						}
@@ -358,7 +358,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "1"
+									"value": "61"
 								}
 							]
 						}
@@ -395,7 +395,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+					"raw": "{{baseUrl}}/users/:userId/comments?eventId=35",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -407,7 +407,7 @@
 					"query": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					],
 					"variable": [
@@ -483,7 +483,7 @@
 					"variable": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					]
 				}
@@ -528,7 +528,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+					"raw": "{{baseUrl}}/users/:userId/comments?eventId=35",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -540,13 +540,13 @@
 					"query": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					],
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						}
 					]
 				}
@@ -594,11 +594,11 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					]
 				}
@@ -656,7 +656,7 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "commentId",
@@ -708,11 +708,11 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					]
 				}
@@ -751,7 +751,7 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "commentId",
@@ -800,11 +800,11 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					]
 				}
@@ -849,7 +849,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+					"raw": "{{baseUrl}}/users/:userId/comments?eventId=35",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -861,13 +861,13 @@
 					"query": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					],
 					"variable": [
 						{
 							"key": "userId",
-							"value": "2"
+							"value": "62"
 						}
 					]
 				}
@@ -893,7 +893,7 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/users/comments?reportUserId=2&commentId=2",
+					"raw": "{{baseUrl}}/users/comments?reportUserId=62&commentId=2",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -904,7 +904,7 @@
 					"query": [
 						{
 							"key": "reportUserId",
-							"value": "2"
+							"value": "62"
 						},
 						{
 							"key": "commentId",
@@ -934,7 +934,7 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/users/comments?reportUserId=2&commentId=2",
+					"raw": "{{baseUrl}}/users/comments?reportUserId=62&commentId=2",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -945,7 +945,7 @@
 					"query": [
 						{
 							"key": "reportUserId",
-							"value": "2"
+							"value": "62"
 						},
 						{
 							"key": "commentId",
@@ -971,7 +971,7 @@
 							"    var response = pm.response.json();\r",
 							"\r",
 							"    pm.expect(response.reportId, '\"reportId\" field').eq(1);\r",
-							"    pm.expect(response.reportedUser, '\"reportedUser\" field').eq(2);\r",
+							"    pm.expect(response.reportedUser, '\"reportedUser\" field').eq(62);\r",
 							"    pm.expect(response.reportedMessage, '\"reportedMessage\" field').eq('bad comment');\r",
 							"})"
 						],
@@ -996,7 +996,7 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "2"
+							"value": "62"
 						}
 					]
 				}
@@ -1036,7 +1036,7 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "2"
+							"value": "62"
 						},
 						{
 							"key": "commentId",
@@ -1085,11 +1085,11 @@
 					"variable": [
 						{
 							"key": "userId",
-							"value": "1"
+							"value": "61"
 						},
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					]
 				}
@@ -1111,7 +1111,7 @@
 							"    var response = pm.response.json();\r",
 							"\r",
 							"    pm.expect(response.length, 'array length').to.be.gte(1);\r",
-							"    pm.expect(response[0].id, '\"id\" field').eq(2);\r",
+							"    pm.expect(response[0].id, '\"id\" field').eq(62);\r",
 							"    pm.expect(response[0].name, '\"name\" field').eq('Bad user');\r",
 							"    pm.expect(response[0].email, '\"email\" field').eq('bad_user@hotmail.com');\r",
 							"    pm.expect(response[0].areCommentsBlocked, '\"areCommentsBlocked\" field').eq(true);\r",
@@ -1127,7 +1127,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userIds\": [2],\r\n  \"status\": \"BANNED\"\r\n}",
+					"raw": "{\r\n  \"userIds\": [62],\r\n  \"status\": \"BANNED\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1176,7 +1176,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+					"raw": "{{baseUrl}}/users/:userId/comments?eventId=35",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -1188,13 +1188,13 @@
 					"query": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					],
 					"variable": [
 						{
 							"key": "userId",
-							"value": "2"
+							"value": "62"
 						}
 					]
 				}
@@ -1216,7 +1216,7 @@
 							"    var response = pm.response.json();\r",
 							"\r",
 							"    pm.expect(response.length, 'array length').to.be.gte(1);\r",
-							"    pm.expect(response[0].id, '\"id\" field').eq(2);\r",
+							"    pm.expect(response[0].id, '\"id\" field').eq(62);\r",
 							"    pm.expect(response[0].name, '\"name\" field').eq('Bad user');\r",
 							"    pm.expect(response[0].email, '\"email\" field').eq('bad_user@hotmail.com');\r",
 							"    pm.expect(response[0].areCommentsBlocked, '\"areCommentsBlocked\" field').eq(false);\r",
@@ -1232,7 +1232,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userIds\": [2],\r\n  \"status\": \"UNBANNED\"\r\n}",
+					"raw": "{\r\n  \"userIds\": [62],\r\n  \"status\": \"UNBANNED\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1291,7 +1291,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/users/:userId/comments?eventId=1",
+					"raw": "{{baseUrl}}/users/:userId/comments?eventId=35",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -1303,13 +1303,13 @@
 					"query": [
 						{
 							"key": "eventId",
-							"value": "1"
+							"value": "35"
 						}
 					],
 					"variable": [
 						{
 							"key": "userId",
-							"value": "2"
+							"value": "62"
 						}
 					]
 				}
