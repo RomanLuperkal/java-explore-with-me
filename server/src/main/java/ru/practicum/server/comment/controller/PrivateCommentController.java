@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.server.comment.dto.CommentDtoList;
 import ru.practicum.server.comment.dto.CommentDtoResponse;
 import ru.practicum.server.comment.dto.CommentDtoUpdate;
 import ru.practicum.server.comment.dto.NewCommentDto;
@@ -32,12 +33,12 @@ public class PrivateCommentController {
     }
 
     @PatchMapping("{userId}/comments/{commentId}")
-    public ResponseEntity<CommentDtoResponse> updateComment(@PathVariable @Min(1) Long userId,
+    public ResponseEntity<CommentDtoResponse> updateCommentAdmin(@PathVariable @Min(1) Long userId,
                                                             @PathVariable @Min(1) Long commentId,
                                                             @RequestBody @Valid CommentDtoUpdate updateComment) {
         log.info("update comment with commentId={} and userId={}: {}", commentId, userId, updateComment);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(commentService.updateComment(userId, commentId, updateComment));
+                .body(commentService.updateCommentUser(userId, commentId, updateComment));
     }
 
     @DeleteMapping("{userId}/comments/{commentId}")
@@ -54,5 +55,19 @@ public class PrivateCommentController {
         log.info("report userId={} with commentId={}", reportUserId, commentId);
         commentService.reportComment(commentId, reportUserId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("{userId}/comments/{commentId}")
+    public ResponseEntity<CommentDtoResponse> getCommentPrivate(@PathVariable @Min(1) Long userId,
+                                                                @PathVariable @Min(1) Long commentId) {
+        log.info("get private comment with userId={} and commentId={}", userId, commentId);
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getCommentPrivate(userId, commentId));
+    }
+
+    @GetMapping("{userId}/events/{eventId}/comments")
+    public ResponseEntity<CommentDtoList> getCommentsPrivate(@PathVariable @Min(1) Long userId,
+                                                             @PathVariable @Min(1) Long eventId) {
+        log.info("get comments with userId={} and eventId={}", userId, eventId);
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getCommentsPrivate(userId, eventId));
     }
 }

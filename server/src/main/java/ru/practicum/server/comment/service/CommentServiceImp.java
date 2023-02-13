@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.server.comment.dto.CommentDtoList;
 import ru.practicum.server.comment.dto.CommentDtoResponse;
 import ru.practicum.server.comment.dto.CommentDtoUpdate;
 import ru.practicum.server.comment.dto.NewCommentDto;
@@ -23,6 +24,7 @@ import ru.practicum.server.user.model.User;
 import ru.practicum.server.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -55,7 +57,7 @@ public class CommentServiceImp implements CommentService {
 
     @Override
     @Transactional
-    public CommentDtoResponse updateComment(Long userId, Long commentId, CommentDtoUpdate updateComment) {
+    public CommentDtoResponse updateCommentUser(Long userId, Long commentId, CommentDtoUpdate updateComment) {
         Comment comment = commentRepository.findByCommentIdAndAuthorUserId(commentId, userId)
                 .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId
                         + " and userId=" + userId + " not found"));
@@ -96,5 +98,46 @@ public class CommentServiceImp implements CommentService {
             throw new NotFoundException("Comment with commentId=" + commentId
                     + " and userId=" + userId + " not found");
         }
+    }
+
+    @Override
+    public CommentDtoResponse updateCommentAdmin(Long userId, Long commentId, CommentDtoUpdate updateComment) {
+        Comment comment = commentRepository.findByCommentIdAndAuthorUserId(commentId, userId)
+                .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId
+                        + " and userId=" + userId + " not found"));
+        comment.setState(CommentState.EDITED);
+        return mapper.mapToCommentResponse(commentRepository.save(mapper.mapToComment(updateComment, comment)));
+    }
+
+    @Override
+    public CommentDtoResponse getCommentPrivate(Long userId, Long commentId) {
+        Comment comment = commentRepository.findByCommentIdAndAuthorUserId(commentId, userId)
+                .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId
+                        + " and userId=" + userId + " not found"));
+        return mapper.mapToCommentResponse(comment);
+    }
+
+    @Override
+    public CommentDtoList getCommentsPrivate(Long userId, Long eventId) {
+        return CommentDtoList
+                .builder()
+                .comments(commentRepository.findAllByAuthorUserIdAndEventEventId(userId, eventId).stream()
+                        .map(mapper::mapToCommentShortDto).collect(Collectors.toList()))
+                .build();
+    }
+
+    @Override
+    public CommentDtoList getCommentsPublic(Long eventId) {
+        return CommentDtoList
+                .builder()
+                .comments(commentRepository.findAllByEventEventId(eventId).stream()
+                        .map(mapper::mapToCommentShortDto).collect(Collectors.toList()))
+                .build();
+    }
+
+    @Override
+    public CommentDtoResponse getCommentPublic(Long commentId) {
+        return mapper.mapToCommentResponse(commentRepository.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("Comment with commentId=" + commentId + " not found")));
     }
 }

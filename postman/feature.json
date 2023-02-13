@@ -554,6 +554,202 @@
 			"response": []
 		},
 		{
+			"name": "get comment private",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Код статуса должен быть 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Данные не совпадают с ожидаемыми\", () => {\r",
+							"    var response = pm.response.json();\r",
+							"\r",
+							"    pm.expect(response.commentId, '\"commentId\" field').eq(1);\r",
+							"    pm.expect(response.text, '\"text\" field').eq('user1 comment');\r",
+							"    pm.expect(response.state, '\"state\" field').eq('NOT_EDIT');\r",
+							"    pm.expect(response.authorName, '\"authorName\" field').eq('User1');\r",
+							"    pm.expect(response.eventTitle, '\"eventTitle\" field').eq('Iusto unde non et voluptatem facere quisquam.');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/:userId/comments/:commentId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						":userId",
+						"comments",
+						":commentId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "63"
+						},
+						{
+							"key": "commentId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get comments private",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Код статуса должен быть 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Данные не совпадают с ожидаемыми\", () => {\r",
+							"    var response = pm.response.json();\r",
+							"\r",
+							"    pm.expect(response[0].text, '\"text\" field').eq('user1 comment');\r",
+							"    pm.expect(response[0].state, '\"state\" field').eq('NOT_EDIT');\r",
+							"    pm.expect(response[0].authorName, '\"authorName\" field').eq('User1');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						":userId",
+						"events",
+						":eventId",
+						"comments"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "63"
+						},
+						{
+							"key": "eventId",
+							"value": "38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get comment public",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Код статуса должен быть 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Данные не совпадают с ожидаемыми\", () => {\r",
+							"    var response = pm.response.json();\r",
+							"\r",
+							"    pm.expect(response.commentId, '\"commentId\" field').eq(1);\r",
+							"    pm.expect(response.text, '\"text\" field').eq('user1 comment');\r",
+							"    pm.expect(response.state, '\"state\" field').eq('NOT_EDIT');\r",
+							"    pm.expect(response.authorName, '\"authorName\" field').eq('User1');\r",
+							"    pm.expect(response.eventTitle, '\"eventTitle\" field').eq('Iusto unde non et voluptatem facere quisquam.');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/comments/:commentId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"comments",
+						":commentId"
+					],
+					"variable": [
+						{
+							"key": "commentId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get comments public",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Код статуса должен быть 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Данные не совпадают с ожидаемыми\", () => {\r",
+							"    var response = pm.response.json();\r",
+							"\r",
+							"    pm.expect(response[0].text, '\"text\" field').eq('user1 comment');\r",
+							"    pm.expect(response[0].state, '\"state\" field').eq('NOT_EDIT');\r",
+							"    pm.expect(response[0].authorName, '\"authorName\" field').eq('User1');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/comments?eventId=38",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "eventId",
+							"value": "38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get event1 with comment",
 			"event": [
 				{
